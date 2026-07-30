@@ -1,10 +1,6 @@
-name: "Tests"
+name: Tests
 on:
-  pull_request:
-  push:
-    branches:
-      - master
-
+  workflow_dispatch:
 jobs:
   # Node 8 is intentionally excluded: the pinned dev toolchain requires a newer
   # Node (rollup@2.49.0 needs >=10.0.0, eslint@7.27.0 needs ^10.12.0||>=12.0.0),
@@ -12,6 +8,8 @@ jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2021-05-27T16%3A17%3A12.429000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Install Node
@@ -28,6 +26,8 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2021-05-27T16%3A17%3A12.429000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Install Node
